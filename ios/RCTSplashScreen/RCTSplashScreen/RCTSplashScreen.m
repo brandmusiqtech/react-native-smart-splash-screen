@@ -21,12 +21,12 @@ RCT_EXPORT_MODULE(SplashScreen)
     rootView = v;
 
     UIImageView *view = [[UIImageView alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    
+
     view.image = [UIImage imageNamed:imageName];
-    view.contentMode = UIViewContentModeScaleAspectFill;
+    view.contentMode = UIViewContentModeScaleAspectFit;
 
     [[NSNotificationCenter defaultCenter] removeObserver:rootView  name:RCTContentDidAppearNotification object:rootView];
-    
+
     [rootView setLoadingView:view];
 }
 
@@ -34,15 +34,15 @@ RCT_EXPORT_METHOD(close:(NSDictionary *)options) {
     if (!rootView) {
         return;
     }
-    
+
     int animationType = UIAnimationNone;
     int duration = 0;
     int delay = 0;
-    
+
     if(options != nil) {
-        
+
         NSArray *keys = [options allKeys];
-        
+
         if([keys containsObject:@"animationType"]) {
             animationType = [[options objectForKey:@"animationType"] intValue];
         }
@@ -78,7 +78,7 @@ RCT_EXPORT_METHOD(close:(NSDictionary *)options) {
                                             [rootView.loadingView removeFromSuperview];
                                         }];
                    });
-    
+
 }
 
 - (NSDictionary *)constantsToExport
